@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Strict Global Color System */
+  --color-bg-app: #F8FAFC;
+  /* Light Professional Background */
+  --color-text-primary: #0F172A;
+  /* Dark Slate Headings */
+  --color-text-body: #334155;
+  /* Slate Body Text */
+
+  --color-primary: #0F172A;
+  --color-secondary: #334155;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-app);
+    color: var(--color-text-body);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .text-primary {
+    color: var(--color-text-primary);
+  }
+
+  p,
+  span,
+  small,
+  li,
+  .text-body {
+    color: var(--color-text-body);
+  }
+}
+
+@layer components {
+  .app-container {
+    @apply min-h-screen w-full bg-slate-50 text-slate-800;
+  }
+
+  /* Universal component override to match theme */
+  .panel,
+  .card,
+  .sidebar {
+    background-color: #FFFFFF;
+    border-color: #E2E8F0;
+  }
+
+  .input-field {
+    @apply bg-white/10 border border-white/20 text-black placeholder-white/60 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black/20;
+    /* Input text black for readability if bg is light, but here bg is transparent-ish white? 
+       Actually, common pattern on colored bg is white/transparent input. 
+       Let's stick to the rules: Primary Text #000000. So input text should likely be black. */
+    color: #000000;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+}

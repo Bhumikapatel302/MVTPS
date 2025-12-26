@@ -1,0 +1,269 @@
+import axios from "axios";
+
+// Create axios instance with base URL and headers
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// Add a request interceptor to add the auth token to requests
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    // Don't set Content-Type for FormData - let axios handle it
+    if (!(config.data instanceof FormData)) {
+      config.headers['Content-Type'] = 'application/json';
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Add a response interceptor to handle token refresh and errors
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Handle network errors
+    if (!error.response) {
+      console.error('Network error:', error.message);
+      return Promise.reject({
+        message: 'Network error. Please check your internet connection.',
+        isNetworkError: true,
+        originalError: error
+      });
+    }
+
+    // Handle timeout errors
+    if (error.code === 'ECONNABORTED') {
+      console.error('Request timeout');
+      return Promise.reject({
+        message: 'Request timed out. Please try again.',
+        isTimeout: true,
+        originalError: error
+      });
+    }
+
+    // If the error is 401 and we haven't tried to refresh yet
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (!refreshToken) {
+          // No refresh token, redirect to login
+          console.warn('No refresh token available, redirecting to login');
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          localStorage.removeItem('user');
+          window.location.href = "/login";
+          return Promise.reject(error);
+        }
+
+        // Try to refresh the token
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api'}/auth/refresh/`,
+          { refresh: refreshToken },
+          { timeout: 10000 } // 10 second timeout
+        );
+
+        const { access, refresh } = response.data;
+
+        // Update tokens in localStorage
+        localStorage.setItem("access_token", access);
+        if (refresh) {
+          localStorage.setItem("refresh_token", refresh);
+        }
+
+        // Update the Authorization header
+        originalRequest.headers.Authorization = `Bearer ${access}`;
+
+        // Retry the original request
+        return api(originalRequest);
+      } catch (refreshError) {
+        // If refresh fails, clear tokens and redirect to login
+        console.error('Token refresh failed:', refreshError);
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
+      }
+    }
+
+    // Handle other HTTP errors with user-friendly messages
+    const errorResponse = {
+      status: error.response?.status,
+      message: error.response?.data?.detail || error.response?.data?.message || error.message,
+      data: error.response?.data,
+      originalError: error
+    };
+
+    // Add specific error messages for common status codes
+    switch (error.response?.status) {
+      case 400:
+        errorResponse.userMessage = 'Invalid request. Please check your input.';
+        break;
+      case 403:
+        errorResponse.userMessage = 'You don\'t have permission to perform this action.';
+        break;
+      case 404:
+        errorResponse.userMessage = 'The requested resource was not found.';
+        break;
+      case 500:
+        errorResponse.userMessage = 'Server error. Please try again later.';
+        break;
+      case 503:
+        errorResponse.userMessage = 'Service temporarily unavailable. Please try again later.';
+        break;
+      default:
+        errorResponse.userMessage = errorResponse.message || 'An unexpected error occurred.';
+    }
+
+    console.error('API Error:', errorResponse);
+    return Promise.reject(errorResponse);
+  }
+);
+
+// Auth API methods
+export const authAPI = {
+  // Login user (with username or email)
+  login: async (credentials) => {
+    try {
+      console.log('Login attempt with:', { username: credentials.username, selected_role: credentials.selected_role });
+
+      const response = await api.post('/auth/login/', {
+        username: credentials.username || credentials.email,
+        password: credentials.password,
+        selected_role: credentials.selected_role  // Send the selected role
+      });
+
+      console.log('Login response:', response.data);
+
+      // Store tokens and user data
+      const { access, refresh, user } = response.data;
+
+      if (!access || !refresh) {
+        console.error('No tokens in response:', response.data);
+        throw new Error('Login failed: No tokens received');
+      }
+
+      // Save to localStorage
+      localStorage.setItem('access_token', access);
+      localStorage.setItem('refresh_token', refresh);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      console.log('Tokens saved to localStorage');
+      console.log('access_token:', access.substring(0, 20) + '...');
+      console.log('refresh_token:', refresh.substring(0, 20) + '...');
+
+      return { token: access, user };
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
+  },
+
+  // Register new user
+  register: async (userData) => {
+    try {
+      const response = await api.post('/auth/register/', {
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+        password2: userData.password2,
+        role: userData.role
+      });
+
+      // Store tokens and user data from registration response
+      const { access, refresh, user } = response.data;
+      if (access && refresh) {
+        localStorage.setItem('access_token', access);
+        localStorage.setItem('refresh_token', refresh);
+        localStorage.setItem('user', JSON.stringify(user));
+        return { token: access, user };
+      }
+
+      // Fallback to auto-login if tokens not in response
+      return authAPI.login({
+        username: userData.username,
+        password: userData.password,
+        selected_role: userData.role
+      });
+    } catch (error) {
+      console.error('Register error:', error);
+      throw error;
+    }
+  },
+
+  // Logout user
+  logout: () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user');
+    console.log('User logged out');
+  },
+
+  // Get current user from localStorage
+  getCurrentUser: () => {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  },
+
+  // Check if user is authenticated
+  isAuthenticated() {
+    const token = localStorage.getItem('access_token');
+    const user = localStorage.getItem('user');
+    return !!(token && user);
+  },
+
+  // Fetch current user data from server
+  fetchCurrentUser: async () => {
+    try {
+      const response = await api.get('/auth/profile/');
+      if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        return response.data;
+      }
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      // If there's an error, return the user from localStorage if available
+      const user = localStorage.getItem('user');
+      return user ? JSON.parse(user) : null;
+    }
+    return null;
+  },
+
+  // Update user profile via /profile/edit/
+  editProfile: async (formData) => {
+    try {
+      const response = await api.put('/auth/profile/edit/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // Update user data in localStorage
+      if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error('Edit profile error:', error);
+      throw error;
+    }
+  }
+};
+
+export default api;

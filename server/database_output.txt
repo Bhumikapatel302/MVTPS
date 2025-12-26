@@ -1,0 +1,545 @@
+﻿================================================================================
+MVTPS DATABASE CONTENTS
+================================================================================
+
+📊 Total Tables: 18
+
+
+================================================================================
+TABLE: core_user
+================================================================================
+📈 Total Records: 5
+📋 Columns: id, password, last_login, username, email, role, created_at
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 2
+  password: pbkdf2_sha256$1000000$fQw8heZsObcDkhnUwYs7gp$icyumy5wQdoMVRcZ93Oa7frtJ5zVb8DTK9qL8yGiR/A=
+  last_login: None
+  username: admin
+  email: admin@mvtps.com
+  role: admin
+  created_at: 2025-12-23 18:07:58.473902
+
+Record 2:
+  id: 3
+  password: pbkdf2_sha256$1000000$kNNWehTPKep1h31zKbwxJX$nx+G3tPiwVRYGvK/T9S0jjuwa7jGRTPeYIbtHxYknnc=
+  last_login: None
+  username: operator1
+  email: operator1@mvtps.com
+  role: operator
+  created_at: 2025-12-23 18:08:01.145529
+
+Record 3:
+  id: 4
+  password: pbkdf2_sha256$1000000$4dfO3dGKi2N85fCJOIwzix$fU9G9DiYUyS7ZyK19O1coLb0TMCEUnyPe7nA+lkLHds=
+  last_login: None
+  username: operator2
+  email: operator2@mvtps.com
+  role: operator
+  created_at: 2025-12-23 18:08:03.168060
+
+Record 4:
+  id: 5
+  password: pbkdf2_sha256$1000000$xVprp8TiHjqnYypQTFSmBk$ick2W+w9AmksGJIIheuOcGmdozSGyil7o0WaqjoBn+A=
+  last_login: None
+  username: analyst1
+  email: analyst1@mvtps.com
+  role: analyst
+  created_at: 2025-12-23 18:08:05.275636
+
+Record 5:
+  id: 6
+  password: pbkdf2_sha256$1000000$9lrsCTsjh0djD7VMWBGvX2$0Ntn34uMjphyem7rNR14QOFSrVgBEnoUvDPDvZN4+eU=
+  last_login: None
+  username: analyst2
+  email: analyst2@mvtps.com
+  role: analyst
+  created_at: 2025-12-23 18:08:12.767884
+
+================================================================================
+TABLE: core_vessel
+================================================================================
+📈 Total Records: 8
+📋 Columns: id, imo_number, name, type, flag, cargo_type, operator, last_position_lat, last_position_lon, last_update, destination
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 6
+  imo_number: IMO9876543
+  name: Pacific Explorer
+  type: Container Ship
+  flag: Panama
+  cargo_type: Containers
+  operator: Maersk Line
+  last_position_lat: 1.2644
+  last_position_lon: 103.822
+  last_update: 2025-12-23 18:08:15.124090
+  destination: Port of Singapore
+
+Record 2:
+  id: 7
+  imo_number: IMO9876544
+  name: Atlantic Voyager
+  type: Bulk Carrier
+  flag: Liberia
+  cargo_type: Iron Ore
+  operator: MSC Mediterranean
+  last_position_lat: 51.9225
+  last_position_lon: 4.4792
+  last_update: 2025-12-23 18:08:15.132248
+  destination: Port of Rotterdam
+
+Record 3:
+  id: 8
+  imo_number: IMO9876545
+  name: Indian Ocean Star
+  type: Tanker
+  flag: Marshall Islands
+  cargo_type: Crude Oil
+  operator: Frontline Ltd
+  last_position_lat: 25.2048
+  last_position_lon: 55.2708
+  last_update: 2025-12-23 18:08:15.137530
+  destination: Port of Dubai
+
+Record 4:
+  id: 9
+  imo_number: IMO9876546
+  name: Mediterranean Queen
+  type: Container Ship
+  flag: Greece
+  cargo_type: Containers
+  operator: CMA CGM
+  last_position_lat: 31.2304
+  last_position_lon: 121.4737
+  last_update: 2025-12-23 18:08:15.144012
+  destination: Port of Shanghai
+
+Record 5:
+  id: 10
+  imo_number: IMO9876547
+  name: Arctic Navigator
+  type: Reefer Ship
+  flag: Norway
+  cargo_type: Frozen Goods
+  operator: Hapag-Lloyd
+  last_position_lat: 33.7405
+  last_position_lon: -118.272
+  last_update: 2025-12-23 18:08:15.149803
+  destination: Port of Los Angeles
+
+================================================================================
+TABLE: core_port
+================================================================================
+📈 Total Records: 6
+📋 Columns: id, name, location, country, congestion_score, avg_wait_time, arrivals, departures, last_update
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 1
+  name: Port of Singapore
+  location: 1.2644° N, 103.8220° E
+  country: Singapore
+  congestion_score: 3.5
+  avg_wait_time: 12.5
+  arrivals: 450
+  departures: 445
+  last_update: 2025-12-23 18:08:15.071007
+
+Record 2:
+  id: 2
+  name: Port of Shanghai
+  location: 31.2304° N, 121.4737° E
+  country: China
+  congestion_score: 4.2
+  avg_wait_time: 18.3
+  arrivals: 520
+  departures: 510
+  last_update: 2025-12-23 18:08:15.077948
+
+Record 3:
+  id: 3
+  name: Port of Rotterdam
+  location: 51.9225° N, 4.4792° E
+  country: Netherlands
+  congestion_score: 2.8
+  avg_wait_time: 8.7
+  arrivals: 380
+  departures: 375
+  last_update: 2025-12-23 18:08:15.087483
+
+Record 4:
+  id: 4
+  name: Port of Dubai
+  location: 25.2048° N, 55.2708° E
+  country: UAE
+  congestion_score: 3.1
+  avg_wait_time: 10.2
+  arrivals: 410
+  departures: 405
+  last_update: 2025-12-23 18:08:15.092793
+
+Record 5:
+  id: 5
+  name: Port of Los Angeles
+  location: 33.7405° N, 118.2720° W
+  country: USA
+  congestion_score: 3.9
+  avg_wait_time: 15.6
+  arrivals: 390
+  departures: 385
+  last_update: 2025-12-23 18:08:15.101806
+
+================================================================================
+TABLE: core_voyage
+================================================================================
+📈 Total Records: 5
+📋 Columns: id, departure_time, arrival_time, status, port_from, port_to, vessel_id
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 1
+  departure_time: 2025-12-18 18:08:15.174147
+  arrival_time: 2025-12-25 18:08:15.174147
+  status: in_progress
+  port_from: 2
+  port_to: 1
+  vessel_id: 6
+
+Record 2:
+  id: 2
+  departure_time: 2025-12-13 18:08:15.174147
+  arrival_time: 2025-12-28 18:08:15.174147
+  status: in_progress
+  port_from: 3
+  port_to: 5
+  vessel_id: 7
+
+Record 3:
+  id: 3
+  departure_time: 2025-12-20 18:08:15.174147
+  arrival_time: 2025-12-24 18:08:15.174147
+  status: in_progress
+  port_from: 4
+  port_to: 6
+  vessel_id: 8
+
+Record 4:
+  id: 4
+  departure_time: 2025-12-03 18:08:15.174147
+  arrival_time: 2025-12-18 18:08:15.174147
+  status: completed
+  port_from: 3
+  port_to: 2
+  vessel_id: 9
+
+Record 5:
+  id: 5
+  departure_time: 2025-12-26 18:08:15.174147
+  arrival_time: 2026-01-07 18:08:15.174147
+  status: scheduled
+  port_from: 1
+  port_to: 5
+  vessel_id: 10
+
+================================================================================
+TABLE: core_event
+================================================================================
+📈 Total Records: 6
+📋 Columns: id, event_type, location, timestamp, details, vessel_id
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 1
+  event_type: departure
+  location: Port of Shanghai
+  timestamp: 2025-12-18 18:08:15.174147
+  details: Departed from Port of Shanghai with 5000 containers
+  vessel_id: 6
+
+Record 2:
+  id: 2
+  event_type: departure
+  location: Port of Rotterdam
+  timestamp: 2025-12-13 18:08:15.174147
+  details: Departed with iron ore cargo
+  vessel_id: 7
+
+Record 3:
+  id: 3
+  event_type: arrival
+  location: Port of Shanghai
+  timestamp: 2025-12-18 18:08:15.174147
+  details: Arrived at Port of Shanghai
+  vessel_id: 9
+
+Record 4:
+  id: 4
+  event_type: maintenance
+  location: Port of Singapore
+  timestamp: 2025-12-21 18:08:15.174147
+  details: Scheduled maintenance - engine inspection
+  vessel_id: 10
+
+Record 5:
+  id: 5
+  event_type: inspection
+  location: Port of Dubai
+  timestamp: 2025-12-20 18:08:15.174147
+  details: Safety inspection completed successfully
+  vessel_id: 8
+
+================================================================================
+TABLE: core_notification
+================================================================================
+📈 Total Records: 4
+📋 Columns: id, message, type, timestamp, event_id, user_id, vessel_id, event_type, is_read
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 1
+  message: Pacific Explorer has departed from Port of Shanghai
+  type: info
+  timestamp: 2025-12-23 18:08:15.422845
+  event_id: 1
+  user_id: 3
+  vessel_id: 6
+  event_type: departure
+  is_read: 0
+
+Record 2:
+  id: 2
+  message: Atlantic Voyager experienced minor delay due to weather
+  type: warning
+  timestamp: 2025-12-23 18:08:15.432216
+  event_id: 6
+  user_id: 5
+  vessel_id: 7
+  event_type: position_update
+  is_read: 0
+
+Record 3:
+  id: 3
+  message: Mediterranean Queen has arrived at Port of Shanghai
+  type: info
+  timestamp: 2025-12-23 18:08:15.437808
+  event_id: 3
+  user_id: 4
+  vessel_id: 9
+  event_type: arrival
+  is_read: 1
+
+Record 4:
+  id: 4
+  message: Arctic Navigator scheduled for maintenance
+  type: alert
+  timestamp: 2025-12-23 18:08:15.444786
+  event_id: 4
+  user_id: 2
+  vessel_id: 10
+  event_type: unknown
+  is_read: 0
+
+================================================================================
+TABLE: core_vessel_position
+================================================================================
+📈 Total Records: 18
+📋 Columns: id, latitude, longitude, speed, course, timestamp, source, vessel_id
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 361
+  latitude: 1.2644
+  longitude: 103.822
+  speed: 15.5
+  course: 180.0
+  timestamp: 2025-12-23 18:08:15.174147
+  source: marinetraffic
+  vessel_id: 6
+
+Record 2:
+  id: 362
+  latitude: 1.7644
+  longitude: 104.122
+  speed: 15.7
+  course: 180.0
+  timestamp: 2025-12-23 12:08:15.174147
+  source: marinetraffic
+  vessel_id: 6
+
+Record 3:
+  id: 363
+  latitude: 2.2644
+  longitude: 104.422
+  speed: 15.9
+  course: 180.0
+  timestamp: 2025-12-23 06:08:15.174147
+  source: marinetraffic
+  vessel_id: 6
+
+Record 4:
+  id: 364
+  latitude: 2.7644
+  longitude: 104.72200000000001
+  speed: 16.1
+  course: 180.0
+  timestamp: 2025-12-23 00:08:15.174147
+  source: marinetraffic
+  vessel_id: 6
+
+Record 5:
+  id: 365
+  latitude: 3.2644
+  longitude: 105.022
+  speed: 16.3
+  course: 180.0
+  timestamp: 2025-12-22 18:08:15.174147
+  source: marinetraffic
+  vessel_id: 6
+
+================================================================================
+TABLE: core_vessel_subscription
+================================================================================
+📈 Total Records: 4
+📋 Columns: id, is_active, alert_type, created_at, updated_at, user_id, vessel_id
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 2
+  is_active: 1
+  alert_type: all
+  created_at: 2025-12-23 18:08:15.452813
+  updated_at: 2025-12-23 18:08:15.452841
+  user_id: 3
+  vessel_id: 6
+
+Record 2:
+  id: 3
+  is_active: 1
+  alert_type: position_update
+  created_at: 2025-12-23 18:08:15.458314
+  updated_at: 2025-12-23 18:08:15.458348
+  user_id: 3
+  vessel_id: 7
+
+Record 3:
+  id: 4
+  is_active: 1
+  alert_type: arrival
+  created_at: 2025-12-23 18:08:15.467022
+  updated_at: 2025-12-23 18:08:15.467056
+  user_id: 5
+  vessel_id: 8
+
+Record 4:
+  id: 5
+  is_active: 0
+  alert_type: departure
+  created_at: 2025-12-23 18:08:15.474043
+  updated_at: 2025-12-23 18:08:15.474076
+  user_id: 6
+  vessel_id: 9
+
+================================================================================
+TABLE: core_vessel_alert
+================================================================================
+📈 Total Records: 3
+📋 Columns: id, alert_type, message, status, created_at, read_at, subscription_id
+
+Sample Data (showing up to 5 records):
+--------------------------------------------------------------------------------
+
+Record 1:
+  id: 1
+  alert_type: departure
+  message: Pacific Explorer has departed from Port of Shanghai
+  status: sent
+  created_at: 2025-12-23 18:08:15.482837
+  read_at: None
+  subscription_id: 2
+
+Record 2:
+  id: 2
+  alert_type: position_update
+  message: Atlantic Voyager position updated
+  status: read
+  created_at: 2025-12-23 18:08:15.494018
+  read_at: 2025-12-23 16:08:15.174147
+  subscription_id: 3
+
+Record 3:
+  id: 3
+  alert_type: arrival
+  message: Indian Ocean Star approaching Port of Mumbai
+  status: pending
+  created_at: 2025-12-23 18:08:15.502508
+  read_at: None
+  subscription_id: 4
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+  Total Users: 5
+  Total Vessels: 8
+  Total Ports: 6
+  Total Voyages: 5
+  Active Voyages: 3
+  Total Events: 6
+  Total Notifications: 4
+  Unread Notifications: 3
+  Total Vessel Positions: 18
+  Active Subscriptions: 3
+  Total Vessel Alerts: 3
+
+--------------------------------------------------------------------------------
+User Breakdown by Role:
+--------------------------------------------------------------------------------
+  admin: 1
+  analyst: 2
+  operator: 2
+
+--------------------------------------------------------------------------------
+Vessel Types:
+--------------------------------------------------------------------------------
+  Bulk Carrier: 1
+  Container Ship: 4
+  General Cargo: 1
+  Reefer Ship: 1
+  Tanker: 1
+
+--------------------------------------------------------------------------------
+Voyage Status:
+--------------------------------------------------------------------------------
+  completed: 1
+  in_progress: 3
+  scheduled: 1
+
+--------------------------------------------------------------------------------
+Event Types:
+--------------------------------------------------------------------------------
+  arrival: 1
+  departure: 2
+  incident: 1
+  inspection: 1
+  maintenance: 1
+
+================================================================================
+✅ Database query completed successfully!
+================================================================================
