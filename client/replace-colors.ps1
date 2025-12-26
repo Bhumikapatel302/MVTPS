@@ -1,18 +1,5 @@
 # PowerShell script to replace blue colors with teal/coral/amber theme
-$files = @(
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\pages\Vessels.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\pages\Ports.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\pages\Voyages.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\pages\Events.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\pages\Notifications.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\pages\Profile.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\pages\ProfileEdit.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\components\VesselSearchFilter.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\components\VesselDetailsPanel.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\components\SubscriptionModal.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\components\SidebarPanel.jsx",
-    "c:\Users\conne\Downloads\MVTPS-leelakrishnasai\MVTPS-leelakrishnasai\client\src\components\RoleBasedUI.jsx"
-)
+
 
 # Color replacements
 $replacements = @{
